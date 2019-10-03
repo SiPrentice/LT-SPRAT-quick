@@ -10,11 +10,12 @@ import numpy as np
 ##################
 
 z=0.0
-SN ='AT2019'+''
+SN ='' ### Object name
 plotgal='y'
 plotvel='n'
 velocity=15500
-Emw = 1e-5
+E = 1e-5
+Rv=3.1
 corloc='./SPRATFluxCorrection.txt'
 
 #####################
@@ -82,7 +83,8 @@ txtlist = glob.glob('./*.txt')
     
 for f in txtlist:
     if '.w.' not in f:
-        file_to_use = f
+        if 'SPRAT' not in f:
+            file_to_use = f
     
 print 'Using', file_to_use
 a=np.loadtxt(file_to_use,unpack=True)
@@ -101,10 +103,10 @@ np.savetxt(file_to_use[:-4]+'.w.txt',master,fmt="%s")
 ### Load the corrected spectrum
 n = np.loadtxt(file_to_use[:-4]+'.w.txt',dtype='float',unpack=True)
     
-### Plot the corrected spectrum dereddened for Emw
+### Plot the corrected spectrum dereddened for E
 m = np.max(a[1])
-a[1] = dered(a[0],a[1],Rv,Emw)
-plt.plot(a[0]/(1.+z),a[1]/max(a[1]),color='k',linewidth=1,label=SN+'\n$z=$'+str(z)+'\n$E_\mathrm{MW} = $'+str(Emw)[:4]+' mag')
+a[1] = dered(a[0],a[1],Rv,E)
+plt.plot(a[0]/(1.+z),a[1]/max(a[1]),color='k',linewidth=1,label=SN+'\n$z=$'+str(z)+'\n$E_\mathrm{MW} = $'+str(E)[:4]+' mag')
     
 ### if necessary plot the galaxy lines
 if plotgal != 'n':
@@ -143,7 +145,7 @@ a = np.loadtxt(file_to_use[:-4]+'.w.txt',unpack=True)
 plt.plot(a[0]/(1.+z),a[1]/max(a[1]),color='red',alpha=0.7,linewidth=1,label='Corrected')
 plt.legend()
 
-#plt.ylim([0,m*1.10])
+
 plt.xlabel('Rest-frame wavelength [$\AA$]')
 plt.ylabel('Scaled flux')
 plt.savefig('./'+SN+'_compare.pdf',bbox_inches='tight')
