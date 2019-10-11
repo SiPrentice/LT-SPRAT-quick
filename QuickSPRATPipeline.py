@@ -6,11 +6,11 @@ import glob
 from pyraf import iraf
 import pylab as plt
 import numpy as np
+from astropy.io import fits
 
 ##################
 
 z=0.0
-SN ='' ### Object name
 plotgal='y'
 plotvel='n'
 velocity=15500
@@ -40,9 +40,22 @@ def dered(wav,flux,Rv,Ebv):
    delF= flux*F
    return delF
 
+def name(fits_file):
+    hdul = fits.open(fits_file)
+    hdr = hdul[0].header
+    if 'OBJECT' in hdr:
+        return hdr['OBJECT']
+            
+    else:
+        print ('No defined object name in fits header -- please provide an object name\n') 
+        return raw_input('Object name: ')
 
 ##################
 justplot= False
+
+file_list = glob.glob('./*.fits')
+SN = name(file_list[0])
+
 file_list = glob.glob('./*.txt')
 if len(file_list)>0:
     if SN in file_list[0]:
@@ -52,11 +65,10 @@ if justplot == False:
     
     print 'Extracting spectrum'
     
-    ## creat the speclist but importing all fits files in folder but rejecting the sensfunc file
+    ## create the fits list
     file_list = glob.glob('./*.fits');file_list.sort()
     final=[]
     for j in range(len(file_list)):
-        #if sensfile not in file_list[j]: 
             final.append(file_list[j]+'[4]')
             final.append('')
     np.savetxt('./allspec',final,fmt="%s")
@@ -65,6 +77,7 @@ if justplot == False:
     date=file_list[0][6:14]
     
     print 'date = ', date
+    
     ## begin IRAFing
 
     ### Extract the 1D spectrum
