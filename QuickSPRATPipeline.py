@@ -1,4 +1,5 @@
 ### Extracts spectrum from objects with reduced spectra from SPRATpipeline
+### v.14-01-20 Includes the newest SPRATCorrections
 
 
 import os
@@ -57,6 +58,7 @@ file_list = glob.glob('./*.fits')
 SN = name(file_list[0])
 
 file_list = glob.glob('./*.txt')
+file_list.sort()
 if len(file_list)>0:
     if SN in file_list[0]:
         justplot=True
@@ -90,7 +92,7 @@ else:
     print 'Skipping spectrum extraction'
 
 ### Correct the spectrum    
-s = np.loadtxt(corloc,unpack=True, usecols=(0,5))
+s = np.loadtxt(corloc,unpack=True, usecols=(0,1))
 txtlist = glob.glob('./*.txt')
     
     
