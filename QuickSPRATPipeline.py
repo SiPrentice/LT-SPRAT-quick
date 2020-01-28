@@ -1,5 +1,5 @@
 ### Extracts spectrum from objects with reduced spectra from SPRATpipeline
-### v.14-01-20 Includes the newest SPRATCorrections
+### v.28-01-20 Includes the newest SPRATCorrections and acconts for object names that begin with letters
 
 
 import os
@@ -60,8 +60,9 @@ SN = name(file_list[0])
 file_list = glob.glob('./*.txt')
 file_list.sort()
 if len(file_list)>0:
-    if SN in file_list[0]:
-        justplot=True
+    for f in file_list:
+        if SN in f:
+            justplot=True
 
 if justplot == False:
     
