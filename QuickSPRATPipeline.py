@@ -76,6 +76,8 @@ for spectrum in files:
  SN,dateobs,mjd,airmass = name(spectrum)[0],name(spectrum)[1],name(spectrum)[2],name(spectrum)[3]
  
  date=os.path.basename(spectrum)[4:12]
+ if '_1_' in spectrum:
+    	date = date+'_1'
  if '_2_' in spectrum:
     	date = date+'_2'
  if '_3_' in spectrum:
