@@ -12,3 +12,5 @@ Applies a correction to compensate for the flux calibration of the official SPRA
 3/10/19 QuickSPRATPipeline.py updated to fix issue that calls the correction file in as the spectrum file
 
 28/1/20 Accounts for mirror recorating on the LT by using new corrections file. Also accounts for object names beginning with a letter
+
+14/7/20 Now applies corrections for various airmasses. Will deal with up to three files from the same night. Processes files in bulk
