@@ -88,7 +88,7 @@ for spectrum in files:
  file_list.sort()
  if len(file_list)>0:
     for f in file_list:
-        if date in f:
+        if (date in f) and (SN in f):
             justplot=True   
 
  if justplot == False:
@@ -123,7 +123,7 @@ for spectrum in files:
  for f in txtlist:
     if '.w.' not in f:
         if 'SPRAT' not in f:
-            if date in f:
+            if SN in f:
                 file_to_use = f
     
  print 'Using', file_to_use
