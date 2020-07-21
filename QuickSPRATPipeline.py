@@ -67,6 +67,13 @@ def header(fits_file):
 
 ##################
 
+for dir in [input_location,
+			output_location,
+			plot_save_location,]:
+			if os.path.isdir('.%s'%dir)==False:
+				print('Making %s' %dir)
+				os.mkdir('.%s'%dir)
+
 dates=[]
 
 files = glob.glob('.'+input_location+'*.fits')
