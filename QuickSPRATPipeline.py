@@ -17,7 +17,7 @@ import pylab as plt
 import numpy as np
 from astropy.io import fits
 
-##################
+###################
 
 z=0.0
 plotgal='y'
