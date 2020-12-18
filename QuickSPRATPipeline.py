@@ -131,7 +131,8 @@ for spectrum in files:
     if '.w.' not in f:
         if 'SPRAT' not in f:
             if SN in f:
-                file_to_use = f
+                if date in f:
+                    file_to_use = f
     
  print 'Using', file_to_use
  a=np.loadtxt(file_to_use,unpack=True)
